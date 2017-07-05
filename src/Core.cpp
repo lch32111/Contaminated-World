@@ -4,6 +4,8 @@
  #include "StaticInfo.h"
 #include <SDL_mixer.h>
 
+Map* SCore::oMap = new Map();
+
 // Static initialization start
 bool SCore::bQuitGame = false;
 // Static initialization end
@@ -18,6 +20,8 @@ SCore::SCore(void)
 	this->lFPSTime = 0;
 	this->bRight_Key = this->bLeft_Key = false;
 	this->bLeft_Right =  true; // 캐릭터는 오른쪽을 향하도록
+	this->bMenuPressed = false;
+
 
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_AUDIO) < 0)
 	{
@@ -43,7 +47,7 @@ SCore::SCore(void)
 		else
 		{
 			sEvent = new SDL_Event();
-			gMap = new Map(sRenderer);
+			oMap = new Map(sRenderer);
 
 			// 여러가지 것들 초기화 START
 			if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
@@ -124,11 +128,6 @@ void SCore::mainLoop()
 	}
 }
 
-void SCore::Draw()
-{
-	gMap->Draw(sRenderer);
-}
-
 void SCore::Input()
 {
 	// 창이 내려갔을 경우 어떻게 할지.
@@ -177,11 +176,28 @@ void SCore::Input()
 			if (!SInfo::KeyAlt)
 			{
 				SInfo::KeyAlt = true;
-				gMap->getPlayer()->Jump();
+				oMap->getPlayer()->Jump();
 			}
 		}
-
-
+		//--
+		switch (sEvent->key.keysym.sym)
+		{
+		case SDLK_ESCAPE:
+			// 메뉴버튼이 안눌려있고 && 현재 상태가 게임플레이 상태일 때
+			if (!bMenuPressed && SInfo::getMM()->getStateID() == SInfo::getMM()->eGame)
+			{
+				SInfo::getMM()->setStateID(SInfo::getMM()->ePause);
+				bMenuPressed = true;
+				//printf("눌렸다!\n");
+			}
+			else
+			{
+				SInfo::getMM()->setStateID(SInfo::getMM()->eGame);
+				bMenuPressed = false;
+			}
+		default:
+			break;
+		}
 	}
 
 	// 오른쪽 키가 눌렸다면
@@ -191,15 +207,15 @@ void SCore::Input()
 		if (!bLeft_Right)
 		{
 			bLeft_Right = true;  // 오른쪽으로
-			gMap->getPlayer()->startMove();
-			gMap->getPlayer()->setMoveDirection_X(bLeft_Right);
+			oMap->getPlayer()->startMove();
+			oMap->getPlayer()->setMoveDirection_X(bLeft_Right);
 			
 		}
 		// 똑같이 오른쪽으로 간다면
-		else if(!gMap->getPlayer()->getMove())
+		else if(!oMap->getPlayer()->getMove())
 		{
-			gMap->getPlayer()->startMove();
-			gMap->getPlayer()->setMoveDirection_X(bLeft_Right);
+			oMap->getPlayer()->startMove();
+			oMap->getPlayer()->setMoveDirection_X(bLeft_Right);
 		}
 	}
 	
@@ -210,25 +226,41 @@ void SCore::Input()
 		if (bLeft_Right)
 		{
 			bLeft_Right = false;   // 왼쪽으로
-			gMap->getPlayer()->startMove();
-			gMap->getPlayer()->setMoveDirection_X(bLeft_Right);
+			oMap->getPlayer()->startMove();
+			oMap->getPlayer()->setMoveDirection_X(bLeft_Right);
 			
 		}
-		else if (!gMap->getPlayer()->getMove())
+		else if (!oMap->getPlayer()->getMove())
 		{
-			gMap->getPlayer()->startMove();
-			gMap->getPlayer()->setMoveDirection_X(bLeft_Right);
+			oMap->getPlayer()->startMove();
+			oMap->getPlayer()->setMoveDirection_X(bLeft_Right);
 		}
 	}
 
 
-	if (gMap->getPlayer()->getMove() && !bRight_Key && !bLeft_Key )
+	if (oMap->getPlayer()->getMove() && !bRight_Key && !bLeft_Key )
 	{
-		gMap->getPlayer()->stopMove();
+		oMap->getPlayer()->stopMove();
 	}
 }
 
 void SCore::Update()
 {
-	gMap->Update();
+	oMap->Update();
 }
+
+void SCore::Draw()
+{
+	//--
+	oMap->Draw(sRenderer);
+	
+	//--
+	/*해당 코드는 실행되고, 아래 코드는 제대로 실행되지 않는 이유 찾기 */
+	if (bMenuPressed) 
+	{
+		oMap->DrawMenu(sRenderer);
+	}
+	//SInfo::getMM()->Draw(sRenderer);	//--
+}
+
+Map* SCore::getMap() { return SCore::oMap; }	//--
