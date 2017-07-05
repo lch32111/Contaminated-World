@@ -1,6 +1,12 @@
 #include "Map.h"
 #include "StaticInfo.h"
 
+//--
+Map::Map()
+{
+	
+}
+
 Map::Map(SDL_Renderer* rR)
 {
 	Character = new Player(rR, SInfo::GAME_WIDTH / 2, SInfo::GAME_HEIGHT / 2);
@@ -11,6 +17,7 @@ void Map::LoadTestData(SDL_Renderer* rR)
 {
 	Background.setIMG("background", rR);
 	Monster.setIMG("monster", rR);
+	Menu.setIMG("quit_icon", rR);
 }
 
 void Map::Draw(SDL_Renderer* rR)
@@ -19,7 +26,6 @@ void Map::Draw(SDL_Renderer* rR)
 	DrawCharacter(rR);
 	DrawMonster(rR);
 }
-
 
 void Map::DrawBackground(SDL_Renderer* rR)
 {
@@ -34,6 +40,11 @@ void Map::DrawCharacter(SDL_Renderer* rR)
 void Map::DrawMonster(SDL_Renderer* rR)
 {
 	Monster.Draw(rR, SInfo::GAME_WIDTH / 4, SInfo::GAME_HEIGHT / 3, false);
+}
+//--
+void Map::DrawMenu(SDL_Renderer* rR)
+{
+	Menu.Draw(rR, SInfo::MenuXpos, SInfo::MenuYpos, false);
 }
 
 void Map::Update()

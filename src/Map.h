@@ -17,18 +17,22 @@ private:
 	int CharacterX, CharacterY;
 
 	CIMG Monster;
+	CIMG Menu;	//--
 
 	void LoadTestData(SDL_Renderer* rR);
 
 	// 그 Map에서 나타날 것을 제어하는 메소드들
 public:
 
+	Map();		//--
 	Map(SDL_Renderer* rR);
 
 	void Draw(SDL_Renderer* rR);
 	void DrawBackground(SDL_Renderer* rR);
 	void DrawCharacter(SDL_Renderer* rR);
 	void DrawMonster(SDL_Renderer* rR);
+	void DrawMenu(SDL_Renderer* rR);	//--
+
 
 	void Update();
 	void UpdatePlayer();

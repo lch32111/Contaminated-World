@@ -25,12 +25,13 @@ private:
 
 	// Key -> Pressed == TRUE, Unpressed == FALSE
 	bool bRight_Key, bLeft_Key;
+	bool bMenuPressed;	//--
 
 	// Direction LEFT == FALSE, RIGHT == TRUE
 	bool bLeft_Right;
 	
 
-	Map* gMap;
+	static Map* oMap;
 
 	void Input();
 	void MouseInput();
@@ -44,6 +45,8 @@ public:
 	static bool bQuitGame;
 	
 	void mainLoop();
+
+	static Map* getMap();
 };
 
 #endif
