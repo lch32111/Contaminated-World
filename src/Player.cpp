@@ -80,7 +80,7 @@ void Player::playerPhysics()
 		}
 	}
 
-	printf("yvel: %f ypos : %f cujumpd: %f\n", YVel, YPos, currentJumpDistance);
+	
 }
 
 void Player::startMove()
