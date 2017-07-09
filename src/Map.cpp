@@ -4,21 +4,23 @@
 //--
 Map::Map()
 {
-	
+
 }
 
 Map::Map(SDL_Renderer* rR)
 {
-	Character = new Player(rR, SInfo::GAME_WIDTH / 1.5, SInfo::GAME_HEIGHT / 2);
-	Monster.push_back(new CIMG("monster", rR));
-	Monster.push_back(new CIMG("monster", rR));
+	Character = new Player(rR, SInfo::GAME_WIDTH / 2, SInfo::GAME_HEIGHT / 2);
 	LoadTestData(rR);
 }
 
 void Map::LoadTestData(SDL_Renderer* rR)
 {
 	Background.setIMG("background", rR);
-	Menu.setIMG("quit_icon", rR);
+	Monster.setIMG("monster", rR);
+	QuitIcon.setIMG("quit_icon", rR);
+	QuitIcon_over.setIMG("quit_icon_over", rR);
+	ContinueIcon.setIMG("continue_icon", rR);
+	ContinueIcon_over.setIMG("continue_icon_over", rR);
 }
 
 void Map::Draw(SDL_Renderer* rR)
@@ -40,61 +42,23 @@ void Map::DrawCharacter(SDL_Renderer* rR)
 
 void Map::DrawMonster(SDL_Renderer* rR)
 {
-	Monster[0]->Draw(rR, SInfo::GAME_WIDTH / 6, SInfo::GAME_HEIGHT / 1.5, false);
-	Monster[1]->Draw(rR, SInfo::GAME_WIDTH / 1.8, SInfo::GAME_HEIGHT / 1.5, false);
+	Monster.Draw(rR, SInfo::GAME_WIDTH / 4, SInfo::GAME_HEIGHT / 3, false);
 }
 
+//--
 void Map::DrawMenu(SDL_Renderer* rR)
 {
-	Menu.Draw(rR, SInfo::MenuXpos, SInfo::MenuYpos, false);
+	ContinueIcon_over.Draw(rR, SInfo::ContinueMenuXpos, SInfo::ContinueMenuYpos, false);
+	QuitIcon.Draw(rR, SInfo::QuitMenuXpos, SInfo::QuitMenuYpos, false);
 }
 
-bool Map::CollisionMonster()
+
+void Map::DrawMenu_over(SDL_Renderer* rR)
 {
-	int Collision = 0;
-
-	for (int i = 0; i < Monster.size(); ++i)
-	{
-		int x = Monster[i]->getRect().x;
-		int y = Monster[i]->getRect().y;
-		int w = Monster[i]->getRect().w;
-		int h = Monster[i]->getRect().h;
-
-		int leftA, leftB;
-		int rightA, rightB;
-		int topA, topB;
-		int bottomA, bottomB;
-
-		leftA = x;
-		rightA = x + w;
-		topA = y;
-		bottomA = y + h;
-
-		leftB = Character->getXPos();
-		rightB = Character->getXPos() + Character->getWidth();
-		topB = Character->getYPos();
-		bottomB = Character->getYPos() + Character->getHeight();
-
-		if (bottomA <= topB)
-			++Collision;
-		if (topA >= bottomB)
-			++Collision;
-		if (rightA <= leftB)
-			++Collision;
-		if (leftA >= rightB)
-			++Collision;
-
-		if (Collision == 0)
-		{
-			printf("Ãæµ¹\n");
-			return true;
-		}
-
-		Collision = 0;
-	}
-
-	return false;
+	ContinueIcon.Draw(rR, SInfo::ContinueMenuXpos, SInfo::ContinueMenuYpos, false);
+	QuitIcon_over.Draw(rR, SInfo::QuitMenuXpos, SInfo::QuitMenuYpos, false);
 }
+
 
 void Map::Update()
 {

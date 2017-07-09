@@ -12,12 +12,9 @@ private:
 
 	float XPos;
 	float XVel;
-	int max_XVel;
 
 	float YPos;
 	float YVel;
-
-	float ground;
 
 	//** Move **//
 
@@ -32,7 +29,7 @@ private:
 	{
 		Jumping,   // 점프가 시작되어 공중으로 뜨고있음.
 		Falling,   // Max 위치까지 올라가고 이제 떨어지고 있는 중임
-		Jump_Default       // 점프하고 있지 않음
+		None       // 점프하고 있지 않음
 	};
 	Jumpenum eJumpState;
 	float startJumpSpeed;
@@ -40,18 +37,6 @@ private:
 	float jumpDistance;
 
 	//** Jump **//
-
-	//** Hit **//
-
-	enum Hitenum
-	{
-		Hitting,	// 공격 중임
-		Hit_Default // 공격하고 있지 않음
-	};
-
-	Hitenum eHitState;
-
-	//** Hit **//
 
 	void movePlayer();
 
@@ -61,12 +46,6 @@ public:
 	
 	void Update();
 
-	void moveAnimation();
-	void jumpAnimation();
-	void fallAnimation();
-	void hitAnimation();
-
-	void hit();
 	void Jump();
 	void startJump();
 	void resetJump();
@@ -87,11 +66,7 @@ public:
 	bool getMove();
 	int getXPos();
 	int getYPos();
-	int getWidth();
-	int getHeight();
 	bool getRotate();
-
-	void setCharacterimgnumb(int numb);
 	
 };
 

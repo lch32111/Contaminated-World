@@ -25,7 +25,7 @@ private:
 
 	// Key -> Pressed == TRUE, Unpressed == FALSE
 	bool bRight_Key, bLeft_Key;
-	bool bMenuPressed;
+	bool bMenuPressed;	//--
 
 	// Direction LEFT == FALSE, RIGHT == TRUE
 	bool bLeft_Right;
@@ -34,6 +34,8 @@ private:
 	static Map* oMap;
 
 	void Input();
+	void InputMenu();
+	void InputPlay();
 	void MouseInput();
 	void Update();
 	void Draw();
