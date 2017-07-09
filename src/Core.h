@@ -34,6 +34,8 @@ private:
 	static Map* oMap;
 
 	void Input();
+	void InputMenu();
+	void InputPlay();
 	void MouseInput();
 	void Update();
 	void Draw();
