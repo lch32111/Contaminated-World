@@ -17,7 +17,8 @@ public:
 	static int KeyIDRight, KeyIDLeft, KeyIDAlt;
 	static bool KeyAlt;
 
-	static int MenuXpos, MenuYpos;
+	static int QuitMenuXpos, QuitMenuYpos;
+	static int ContinueMenuXpos, ContinueMenuYpos;
 
 	static MenuManager* getMM();	//--
 

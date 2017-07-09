@@ -4,7 +4,7 @@
 Player::Player(SDL_Renderer* rR, int x, int y)
 {
 	bMove = false;
-	bLeft_Right = false;
+	bLeft_Right = true; // 오른쪽을 보게 한다.
 	XPos = x;
 	XVel = 0;
 
