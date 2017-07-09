@@ -34,7 +34,7 @@ SDL_Rect CIMG::getRect() { return rRect; }
 void CIMG::setIMG(std::string filename, SDL_Renderer* rR)
 {
 	// 파일 이미지 확장자 변경 가능, 파일주소에 한글이 들어있으면 안됌
-	filename = "files/images/" + filename + ".bmp";
+	filename = "files/images/" + filename + ".png";
 	SDL_Surface* loadedSurface = IMG_Load(filename.c_str());
 
 	if (loadedSurface == NULL)
@@ -60,4 +60,10 @@ void CIMG::setIMG(std::string filename, SDL_Renderer* rR)
 	}
 
 	SDL_FreeSurface(loadedSurface);
+}
+
+void CIMG::setWH(int width, int height)
+{
+	rRect.w = width;
+	rRect.h = height;
 }
