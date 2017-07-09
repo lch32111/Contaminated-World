@@ -22,6 +22,7 @@ public:
 	SDL_Texture* getIMG();
 	SDL_Rect getRect();
 	void setIMG(std::string filename, SDL_Renderer* rR);
+	void setWH(int width, int height);
 
 };
 

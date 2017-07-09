@@ -3,9 +3,6 @@
 #include "CIMG.h"
  #include "StaticInfo.h"
 #include <SDL_mixer.h>
-#include "iostream"
-
-using namespace std;
 
 Map* SCore::oMap = new Map();
 
@@ -22,7 +19,7 @@ SCore::SCore(void)
 	this->iNumofFPS = 0;
 	this->lFPSTime = 0;
 	this->bRight_Key = this->bLeft_Key = false;
-	this->bLeft_Right =  true; // 캐릭터는 오른쪽을 향하도록	//-----------------------------??
+	this->bLeft_Right =  true; // 캐릭터는 오른쪽을 향하도록
 	this->bMenuPressed = false;
 
 
@@ -60,13 +57,13 @@ SCore::SCore(void)
 			}
 
 
-
 			// 여러가지 것들 초기화 END
-
 			SInfo::KeyIDRight = SDLK_RIGHT;
 			SInfo::KeyIDLeft = SDLK_LEFT;
 			SInfo::KeyIDAlt = SDLK_LALT;
+			SInfo::KeyIDCtrl = SDLK_LCTRL;
 			SInfo::KeyAlt = false;
+			SInfo::KeyCtrl = false;
 
 		}
 
@@ -133,73 +130,6 @@ void SCore::mainLoop()
 
 void SCore::Input()
 {
-	switch (SInfo::getMM()->getStateID())
-	{
-	// eGame = 1
-	case 1:
-		InputPlay();
-		break;
-	default: 
-		InputMenu();
-		break;
-	}
-
-}
-
-void SCore::InputMenu()
-{
-	if (sEvent->type == SDL_KEYDOWN)
-	{
-		switch (sEvent->key.keysym.sym)
-		{
-		
-		// 오른쪽 방향키 0, 왼쪽 방향키 1 로 임의설정
-		case SDLK_RIGHT :  
-			if (!bMenuPressed)
-			{
-				SInfo::getMM()->keyPressed(0);
-				bMenuPressed = true;
-			}
-			break;
-		case SDLK_LEFT:
-			if (!bMenuPressed)
-			{
-				SInfo::getMM()->keyPressed(1);
-				bMenuPressed = true;
-			}
-			break;
-		case SDLK_RETURN:   case SDLK_KP_ENTER:
-			if (!bMenuPressed)
-			{
-				SInfo::getMM()->enter();
-				bMenuPressed = true;
-			}
-			break;
-		case SDLK_ESCAPE:
-			if (!bMenuPressed)
-			{
-				SInfo::getMM()->escape();	
-				bMenuPressed = true;
-			}
-			break;
-		}
-	}
-
-	if (sEvent->type == SDL_KEYUP)
-	{
-		switch (sEvent->key.keysym.sym)
-		{
-		case SDLK_RIGHT:  case SDLK_LEFT:  case SDLK_RETURN:  case SDLK_KP_ENTER:  case SDLK_ESCAPE:
-			bMenuPressed = false;
-			break;
-		}
-	}
-
-}
-
-
-void SCore::InputPlay()
-{
 	// 창이 내려갔을 경우 어떻게 할지.
 	if (sEvent->type == SDL_WINDOWEVENT)
 	{
@@ -227,13 +157,11 @@ void SCore::InputPlay()
 			SInfo::KeyAlt = false;
 		}
 
-		switch (sEvent->key.keysym.sym)
+		if (sEvent->key.keysym.sym == SInfo::KeyIDCtrl)
 		{
-		case SDLK_ESCAPE:   case SDLK_RETURN:  case SDLK_KP_ENTER:
-			bMenuPressed = false;
-			break;
+
 		}
-		
+
 	}
 
 	if (sEvent->type == SDL_KEYDOWN)
@@ -247,7 +175,7 @@ void SCore::InputPlay()
 		{
 			bLeft_Key = true;
 		}
-
+		
 		if (sEvent->key.keysym.sym == SInfo::KeyIDAlt)
 		{
 			if (!SInfo::KeyAlt)
@@ -256,19 +184,28 @@ void SCore::InputPlay()
 				oMap->getPlayer()->Jump();
 			}
 		}
-		//--
+		if (sEvent->key.keysym.sym == SInfo::KeyIDCtrl)
+		{
+				oMap->getPlayer()->hit();
+		}
+
 		switch (sEvent->key.keysym.sym)
 		{
-			case SDLK_ESCAPE:
+		case SDLK_ESCAPE:
+			// 메뉴버튼이 안눌려있고 && 현재 상태가 게임플레이 상태일 때
+			if (!bMenuPressed && SInfo::getMM()->getStateID() == SInfo::getMM()->eGame)
 			{
-				// 메뉴버튼이 안눌려있고 && 현재 상태가 게임플레이 상태일 때
-				if (!bMenuPressed && SInfo::getMM()->getStateID() == SInfo::getMM()->eGame)
-				{
-					SInfo::getMM()->setStateID(SInfo::getMM()->ePause);
-					bMenuPressed = true;
-				}
-				break;
+				SInfo::getMM()->setStateID(SInfo::getMM()->ePause);
+				bMenuPressed = true;
 			}
+			else
+			{
+				SInfo::getMM()->setStateID(SInfo::getMM()->eGame);
+				bMenuPressed = false;
+			}
+			break;
+		default:
+			break;
 		}
 	}
 
@@ -281,17 +218,16 @@ void SCore::InputPlay()
 			bLeft_Right = true;  // 오른쪽으로
 			oMap->getPlayer()->startMove();
 			oMap->getPlayer()->setMoveDirection_X(bLeft_Right);
-
+			
 		}
-
 		// 똑같이 오른쪽으로 간다면
-		else if (!oMap->getPlayer()->getMove())
+		else if(!oMap->getPlayer()->getMove())
 		{
 			oMap->getPlayer()->startMove();
 			oMap->getPlayer()->setMoveDirection_X(bLeft_Right);
 		}
 	}
-
+	
 	// 왼쪽 키가 눌렸다면
 	if (bLeft_Key)
 	{
@@ -301,7 +237,7 @@ void SCore::InputPlay()
 			bLeft_Right = false;   // 왼쪽으로
 			oMap->getPlayer()->startMove();
 			oMap->getPlayer()->setMoveDirection_X(bLeft_Right);
-
+			
 		}
 		else if (!oMap->getPlayer()->getMove())
 		{
@@ -310,21 +246,27 @@ void SCore::InputPlay()
 		}
 	}
 
-	if (oMap->getPlayer()->getMove() && !bRight_Key && !bLeft_Key)
+
+	if (oMap->getPlayer()->getMove() && !bRight_Key && !bLeft_Key )
 	{
 		oMap->getPlayer()->stopMove();
 	}
 }
 
-
 void SCore::Update()
 {
-	SInfo::getMM()->Update();
+	oMap->Update();
 }
 
 void SCore::Draw()
 {
-	SInfo::getMM()->Draw(sRenderer);	
+	//--
+	oMap->Draw(sRenderer);
+	
+	if (bMenuPressed) 
+	{
+		oMap->DrawMenu(sRenderer);
+	}
 }
 
-Map* SCore::getMap() { return SCore::oMap; }
+Map* SCore::getMap() { return SCore::oMap; }	//--
