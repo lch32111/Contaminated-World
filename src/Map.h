@@ -16,15 +16,10 @@ private:
 	Player* Character;
 	int CharacterX, CharacterY;
 
-	CIMG Monster;
-	//
-	CIMG ContinueIcon;
-	CIMG ContinueIcon_over;
-	CIMG QuitIcon;
-	CIMG QuitIcon_over;	
+	std::vector<CIMG*> Monster;
+	CIMG Menu;	//--
 
 	void LoadTestData(SDL_Renderer* rR);
-
 
 	// 그 Map에서 나타날 것을 제어하는 메소드들
 public:
@@ -36,10 +31,9 @@ public:
 	void DrawBackground(SDL_Renderer* rR);
 	void DrawCharacter(SDL_Renderer* rR);
 	void DrawMonster(SDL_Renderer* rR);
-	
 	void DrawMenu(SDL_Renderer* rR);	//--
-	void DrawMenu_over(SDL_Renderer* rR);	//--
 
+	bool CollisionMonster();
 
 
 	void Update();
