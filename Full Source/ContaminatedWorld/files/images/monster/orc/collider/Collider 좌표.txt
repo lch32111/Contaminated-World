@@ -1,0 +1,23 @@
+move collider left
+(57, 5)
+(125, 108)
+Width 68
+Height 103
+
+move collider right
+(49, 5)
+(117, 108)
+Width 68
+Height 103
+
+attack collider left
+(4, 23)
+(45, 42)
+Width 41
+Height 19
+
+attack collider right
+(129, 23)
+(170, 42)
+Width 41
+Height 19
