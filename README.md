@@ -40,3 +40,11 @@ And each of these files means I wrote more than 80% of each file by myself.
 you can see the text information of user-created extension file(cwm,cwmo,cwrt) 
 if you open the files on .txt.
 
+
+Play Video : https://www.youtube.com/watch?v=eNRcqxsTKBw
+
+This video was maded by other colleagues without me.
+They hired a designer and asked him to make design source for the game.
+And then, They modified the code from this Contaminated World code.
+This video and game was submitted to the Gwangju IndieStars(The platform supporting indie games).
+
