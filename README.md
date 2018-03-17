@@ -44,7 +44,7 @@ if you open the files on .txt.
 Play Video : https://www.youtube.com/watch?v=eNRcqxsTKBw
 
 This video was maded by other colleagues without me.
-They hired a designer and asked him to make design source for the game.
+They hired a designer and asked him to make design resources for the game.
 And then, They modified the code from this Contaminated World code.
 This video and game was submitted to the Gwangju IndieStars(The platform supporting indie games).
 
