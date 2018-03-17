@@ -15,13 +15,14 @@ I did this project with other two colleagues.
 So, this is the list where I implemented many features on this project.
 And each of these files means I wrote more than 80% of each file by myself.
 
-1. Overall System and Structure on this game (plus the plan of this game)
+1. Overall System and Structure on this game (plus the plan of this game) 
+  (I referred to overall system on this, https://github.com/jakowskidev/uMario_Jakowski)
 2. AssetManager.h/.cpp
 3. BitmapText.h/.cpp (I referred to the lazyfoo's code, http://lazyfoo.net/tutorials/SDL/41_bitmap_fonts/index.php)
 4. CIMG.h/.cpp
 5. Core.h/.cpp
 6. EndingMenu.h/.cpp
-7. FileParser.h/.cpp
+7. FileParser.h/.cpp (I referred to the code which my professor(3D Graphics Module on Northumbria University) gave me.)
 8. GameItem.h/.cpp
 9. Map.h/.cpp
 10. MapLevel.h/.cpp
@@ -47,4 +48,3 @@ This video was maded by other colleagues without me.
 They hired a designer and asked him to make design resources for the game.
 And then, They modified the code from this Contaminated World code.
 This video and game was submitted to the Gwangju IndieStars(The platform supporting indie games).
-
