@@ -17,7 +17,7 @@ And each of these files means I wrote more than 80% of each file by myself.
 
 1. Overall System and Structure on this game (plus the plan of this game)
 2. AssetManager.h/.cpp
-3. BitmapText.h/.cpp (I referred to the lazyfoo's code)
+3. BitmapText.h/.cpp (I referred to the lazyfoo's code, http://lazyfoo.net/tutorials/SDL/41_bitmap_fonts/index.php)
 4. CIMG.h/.cpp
 5. Core.h/.cpp
 6. EndingMenu.h/.cpp
