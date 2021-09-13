@@ -1,5 +1,5 @@
 # Contaminated-World / Game Proejct using SDL2 
-![game_screenshot](screenshot.png)
+![game_screenshot](screenshot.PNG)
 
 The exe file of this game can be played on Windows 10.
 There is a manual how to play this game on EXE folder.
