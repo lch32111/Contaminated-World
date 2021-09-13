@@ -1,4 +1,6 @@
 # Contaminated-World / Game Proejct using SDL2 
+![game_screenshot](screenshot.png)
+
 The exe file of this game can be played on Windows 10.
 There is a manual how to play this game on EXE folder.
 
@@ -16,7 +18,7 @@ So, this is the list where I implemented many features on this project.
 And each of these files means I wrote more than 80% of each file by myself.
 
 1. Overall System and Structure on this game (plus the plan of this game) 
-  (I referred to overall system on this, https://github.com/jakowskidev/uMario_Jakowski)
+    (I referred to overall system on this, https://github.com/jakowskidev/uMario_Jakowski)
 2. AssetManager.h/.cpp
 3. BitmapText.h/.cpp (I referred to the lazyfoo's code, http://lazyfoo.net/tutorials/SDL/41_bitmap_fonts/index.php)
 4. CIMG.h/.cpp
